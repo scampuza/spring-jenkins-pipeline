@@ -29,7 +29,7 @@ pipeline {
          
         stage("Tests and Deployment") {
             parallel {
-                stage("Runing unit tests") {
+                stage('Runing unit tests') {
                     try {
                         sh "./mvnw test -Punit"
                     } catch(err) {
@@ -40,7 +40,7 @@ pipeline {
                    step([$class: 'JUnitResultArchiver', testResults: 
                      '**/target/surefire-reports/TEST-*UnitTest.xml'])
                 }
-                stage("Runing integration tests") {
+                stage('Runing integration tests') {
                     try {
                         sh "./mvnw test -Pintegration"
                     } catch(err) {
@@ -55,7 +55,7 @@ pipeline {
                 }
             }
              
-            stage("Staging") {
+            stage('Staging') {
                 sh "pid=\$(lsof -i:8989 -t); kill -TERM \$pid "
                   + "|| kill -KILL \$pid"
                 withEnv(['JENKINS_NODE_COOKIE=dontkill']) {
