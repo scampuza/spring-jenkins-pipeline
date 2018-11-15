@@ -54,6 +54,7 @@ pipeline {
                         + '*IntegrationTest.xml'])
                 }
             }
+        }
              
             stage('Staging') {
                 sh "pid=\$(lsof -i:8989 -t); kill -TERM \$pid "
@@ -62,7 +63,5 @@ pipeline {
                     sh 'nohup ./mvnw spring-boot:run -Dserver.port=8989 &'
                 }   
             }
-        }
     }
 }
-
